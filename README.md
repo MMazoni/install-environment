@@ -16,3 +16,5 @@ List of optional packages to install
 * node
 * yarn
 * docker
+* docker-compose
+* node/yarn
