@@ -1,0 +1,11 @@
+---
+- name: Install environment
+  hosts: all
+
+  tasks:
+  - name: Update system packages
+    apt:
+      update_cache: yes
+      upgrade: safe
+    become: yes
+  
