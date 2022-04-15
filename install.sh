@@ -18,7 +18,7 @@ sudo chsh -s $(which fish) $USER
 # vim
 echo "Configuring vim..."
 curl -o ~/.vimrc https://raw.githubusercontent.com/MMazoni/configuration-files/master/.vimrc
-curl -o ~/.vim/colors/atlantic-dark.vim https://raw.githubusercurrent.com/MMazoni/configuration-files/master/.vim/colors/atlantic-dark.vim --create-dirs
+curl -o ~/.vim/colors/atlantic-dark.vim https://raw.githubusercontent.com/MMazoni/configuration-files/master/.vim/colors/atlantic-dark.vim --create-dirs
 
 # github
 echo "Configuring git..."

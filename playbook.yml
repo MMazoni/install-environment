@@ -33,10 +33,30 @@
     get_url:
       url: https://raw.githubusercontent.com/MMazoni/configuration-files/master/.config/fish/config.fish
       dest: "{{ home_dir }}/.config/fish/config.fish"
-      mode: 0440
 
   - name: Add fish to shell
     shell: chsh -s $(which fish) "{{ user }}"
     become: yes
 
+  - name: Execute fish to install the theme
+    shell: fish
+
+  - name: Download vim confiruration file
+    get_url:
+      url: https://raw.githubusercontent.com/MMazoni/configuration-files/master/.vimrc
+      dest: "{{ home_dir }}/.vimrc"
+    
+  - name: Create vim themes directory
+    file: 
+      path: "{{ home_dir }}/.vim/colors"
+      state: directory
+      mode: 0755
+
+  - name: Download atlantic-dark vim theme file
+    get_url:
+      url: https://raw.githubusercontent.com/MMazoni/configuration-files/master/.vim/colors/atlantic-dark.vim
+      dest: "{{ home_dir }}/.vim/colors/atlantic-dark.vim"
+
+  - name: Execute vim to install the libs and theme
+    shell: vim
     
