@@ -2,6 +2,10 @@
 - name: Install environment
   hosts: all
 
+  vars:
+    home_dir: /home/mmazoni
+    user: mmazoni
+
   tasks:
   - name: Update system packages
     apt:
@@ -9,3 +13,30 @@
       upgrade: safe
     become: yes
   
+  - name: Install packages
+    apt: 
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - fish
+      - git
+      - vim
+    become: yes
+
+  - name: Create fish config directory
+    file: 
+      path: "{{ home_dir }}/.config/fish"
+      state: directory
+      mode: 0755
+
+  - name: Download the fish config file
+    get_url:
+      url: https://raw.githubusercontent.com/MMazoni/configuration-files/master/.config/fish/config.fish
+      dest: "{{ home_dir }}/.config/fish/config.fish"
+      mode: 0440
+
+  - name: Add fish to shell
+    shell: chsh -s $(which fish) "{{ user }}"
+    become: yes
+
+    
