@@ -18,3 +18,8 @@ List of optional packages to install
 * docker
 * docker-compose
 * node/yarn
+
+
+Command to execute ansible:
+
+  ansible-playbook -i hosts -e @secrets.yml main.yml
