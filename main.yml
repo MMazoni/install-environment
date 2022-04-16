@@ -9,7 +9,7 @@
     distro: debian
 
   tasks:
-  update_packages
+  # update_packages
   - name: Update system packages
     apt:
       update_cache: yes
@@ -94,6 +94,12 @@
       name: user.email
       scope: global
       value: "{{ github_email }}"
+  
+  - name: Set git config pull
+    community.general.git_config:
+      name: pull.ff
+      scope: global
+      value: only
   
   - name: Create ssh folder
     file:
