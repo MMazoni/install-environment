@@ -1,0 +1,40 @@
+---
+- name: Get gh-cli into source list
+  shell: "{{ item }}"
+  loop:
+    - curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+    - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+- name: Install gh-cli
+  apt:
+    update_cache: yes
+    name: gh
+    state: latest
+  become: yes
+
+- name: Create ssh folder
+  file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+    mode: 0755
+  
+- name: Generate ssh-key
+  openssh_keypair:
+    path: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+    type: rsa
+    size: 4096
+    state: present
+    force: no
+
+- name: Authenticate to GitHub
+  shell: "echo {{ gh_token }} | gh auth login --with-token"
+
+- name: Check if ssh-key is already on GitHub
+  shell: gh ssh-key list | grep "{{ ssh_key_name }}"
+  changed_when: true
+  register: check_ssh_key_github
+  ignore_errors: true
+
+- name: Add ssh-key to GitHub account
+  shell: "gh ssh-key add {{ ansible_env.HOME }}/.ssh/id_rsa.pub -t {{ ssh_key_name }}"
+  when: check_ssh_key_github is failed

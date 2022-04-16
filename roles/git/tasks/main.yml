@@ -1,0 +1,24 @@
+---
+- name: Change git config editor to vim
+  community.general.git_config:
+    name: core.editor
+    scope: global
+    value: vim
+
+- name: Set git config username
+  community.general.git_config:
+    name: user.name
+    scope: global
+    value: "{{ github_name }}"
+
+- name: Set git config email
+  community.general.git_config:
+    name: user.email
+    scope: global
+    value: "{{ github_email }}"
+
+- name: Set git config pull
+  community.general.git_config:
+    name: pull.ff
+    scope: global
+    value: only

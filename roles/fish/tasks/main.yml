@@ -1,0 +1,18 @@
+---
+- name: Create fish config directory
+  file:
+    path: "{{ ansible_env.HOME }}/.config/fish"
+    state: directory
+    mode: 0755
+
+- name: Download the fish config file
+  get_url:
+    url: https://raw.githubusercontent.com/MMazoni/configuration-files/master/.config/fish/config.fish
+    dest: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+
+- name: Add fish to shell
+  shell: chsh -s $(which fish) "{{ ansible_env.USER }}"
+  become: yes
+
+- name: Execute fish to install the theme
+  shell: fish
