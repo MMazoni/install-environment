@@ -2,11 +2,11 @@
 - name: Install environment
   hosts: all
   roles:
-    - apt-packages
+    - apt_packages
     - fish
     - vim
     - git
     - github
     - docker
-    - docker-compose
+    - docker_compose
       

@@ -10,9 +10,17 @@
     url: https://raw.githubusercontent.com/MMazoni/configuration-files/master/.config/fish/config.fish
     dest: "{{ ansible_env.HOME }}/.config/fish/config.fish"
 
+- name: Check fish is already installed
+  shell: "echo $SHELL | grep 'fish'"
+  register: check_fish_installed
+  ignore_errors: true
+
 - name: Add fish to shell
   shell: chsh -s $(which fish) "{{ ansible_env.USER }}"
+  when: check_fish_installed is failed
   become: yes
 
 - name: Execute fish to install the theme
   shell: fish
+  when: check_fish_installed is failed
+  
