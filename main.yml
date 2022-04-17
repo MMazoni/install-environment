@@ -9,4 +9,4 @@
     - github
     - docker
     - docker_compose
-      
+    - python
