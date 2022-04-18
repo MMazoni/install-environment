@@ -1,6 +1,6 @@
 # Setup my environment with Ansible
 
-I was tired to manually installing my environment thousand times, then ~~I created this bash script~~. I took notice of **Ansible** recently and it really will help me to automate my local environment. I have a Chromebook, so I often build and destroy the Linux container(Crostini), automating this will save me time.
+I was tired to manually installing my environment thousand times, then ~~I created this bash script~~. I took notice of **Ansible** recently and it really helped me to automate my local environment. I have a Chromebook, so I often build and destroy the Linux container(Crostini), automating this will save me time.
 
 List of things that ansible playbook do:
 
