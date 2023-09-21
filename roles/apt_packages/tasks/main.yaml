@@ -13,4 +13,6 @@
     - fish
     - git
     - vim
+    - curl
+    - wget
   become: yes
