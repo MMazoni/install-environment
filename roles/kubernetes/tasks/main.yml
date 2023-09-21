@@ -1,0 +1,23 @@
+---
+- name: Download Kubernetes binary
+  shell: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+- name: Download the kubectl checksum
+  shell: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+
+- name: Validate the kubectl binary
+  shell: echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+- name: Install kubernetes
+  shell: install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+  become: yes
+
+- name: Remove kubectl binary
+  file:
+    dest: ./kubectl
+    state: absent
+
+- name: Remove kubectl binary
+  file:
+    dest: ./kubectl.sha256
+    state: absent
