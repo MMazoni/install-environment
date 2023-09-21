@@ -1,0 +1,23 @@
+[apt_package]
+localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni
+
+[fish]
+localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni
+
+[vim]
+localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni
+
+[git]
+localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni
+
+[github]
+localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni
+
+[docker]
+localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni
+
+[docker_compose]
+localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni
+
+[python]
+localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni

@@ -1,0 +1,21 @@
+---
+- name: Download docker script
+  shell: curl -fsSL https://get.docker.com -o get-docker.sh
+
+- name: Run script
+  shell: sh get-docker.sh
+  become: yes
+  
+  
+- name: Create docker group
+  group:
+    name: docker
+    state: present
+  become: yes
+  
+- name: Add ansible_env.USER to docker group
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: docker
+    append: yes
+  become: yes

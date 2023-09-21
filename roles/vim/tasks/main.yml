@@ -1,0 +1,16 @@
+---
+- name: Download vim confiruration file
+  get_url:
+    url: https://raw.githubusercontent.com/MMazoni/configuration-files/master/.vimrc
+    dest: "{{ ansible_env.HOME }}/.vimrc"
+  
+- name: Create vim themes directory
+  file:
+    path: "{{ ansible_env.HOME }}/.vim/colors"
+    state: directory
+    mode: 0755
+
+- name: Download atlantic-dark vim theme file
+  get_url:
+    url: https://raw.githubusercontent.com/MMazoni/configuration-files/master/.vim/colors/atlantic-dark.vim
+    dest: "{{ ansible_env.HOME }}/.vim/colors/atlantic-dark.vim"

@@ -1,0 +1,10 @@
+---
+- name: Install environment
+  hosts: all
+  roles:
+    - apt_packages
+    - fish
+    - vim
+    - git
+    - github
+    - docker

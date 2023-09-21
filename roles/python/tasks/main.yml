@@ -1,0 +1,52 @@
+---
+- name: Download Python Source Code
+  get_url:
+    url: "https://www.python.org/ftp/python/{{ python_version }}/Python-{{ python_version }}.tar.xz"
+    dest: "{{ ansible_env.HOME }}/Python-{{ python_version }}.tar.xz"
+  
+# - name: Create the new python directory
+#   file:
+#     path:
+#     state:
+#     mode:
+
+- name: Extract Python source code
+  unarchive:
+    src: "{{ ansible_env.HOME }}/Python-{{ python_version }}.tar.xz"
+    dest: "/opt/"
+    remote_src: yes
+  become: yes
+    
+- name: "Check if python{{ python_version }} is already installed"
+  shell: "python3.8 --version | grep 'Python {{ python_version }}'"
+  register: check_python_installed
+  ignore_errors: true
+
+- name: Install the dependencies
+  apt:
+    name: "{{ item }}"
+  loop: "{{ python_dependencies }}"
+  become: yes
+  when: check_python_installed is failed
+  
+- name: Build and optimize Python source code
+  shell: ./configure --enable-optimizations --enable-shared
+  args:
+    chdir: "/opt/Python-{{ python_version }}"
+  when: check_python_installed is failed
+
+- name: Compile the Python source code
+  shell: make
+  args:
+    chdir: "/opt/Python-{{ python_version }}"
+  when: check_python_installed is failed
+  
+- name: Use this command to not overwrite the Python 3 binary system
+  shell: make altinstall
+  args:
+    chdir: "/opt/Python-{{ python_version }}"
+  become: yes
+  
+- name: Configure the dynamic linker run-time bindings
+  shell: "ldconfig /opt/Python-{{ python_version }}"
+  become: yes
