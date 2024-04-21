@@ -1,0 +1,23 @@
+---
+- name: Download bob (neovim version manager)
+  shell: gh release download -p '*-linux-x86_64.*' -R MordechaiHadad/bob
+
+- name: Create binary directory if not exists
+  file:
+    path: "~/.local/bin"
+    state: directory
+
+- name: Unzip bob release
+  unarchive:
+    src: bob-linux-x86_64.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Move bob binary
+  command:
+    cmd: mv /tmp/bob-linux-x86_64/bob ~/.local/bin/
+
+- name: Remove zip
+  command:
+    cmd: rm bob-linux-x86_64.zip
+
