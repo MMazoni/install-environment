@@ -38,3 +38,6 @@
 - name: Add ssh-key to GitHub account
   shell: "gh ssh-key add {{ ansible_env.HOME }}/.ssh/id_rsa.pub -t {{ ssh_key_name }}"
   when: check_ssh_key_github is failed
+
+- name: Set SSH as default git protocol
+  shell: "gh config set git_protocol ssh"

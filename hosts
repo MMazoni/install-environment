@@ -21,3 +21,6 @@ localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni
 
 [python]
 localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni
+
+[nvim]
+localhost ansible_host=127.0.0.1 ansible_connection=local ansible_user=mmazoni

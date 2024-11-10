@@ -21,3 +21,37 @@
   command:
     cmd: rm bob-linux-x86_64.zip
 
+- name: Check if nvim config directory exists
+  stat:
+    path: "{{ ansible_env.HOME }}/.config/nvim/.git"
+  register: nvim_config_dir_status
+
+- name: Clone my nvim-config repository if not already cloned
+  git:
+    repo: git@github.com:MMazoni/nvim-config.git
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+    version: main
+    key_file: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+  when: nvim_config_dir_status.stat.exists
+  register: git_clone_result
+
+- name: Handle git clone failure
+  fail:
+    msg: "Failed to clone nvim-config repository: {{ git_clone_result.msg }}"
+  when: git_clone_result.failed
+
+- name: check if node is installed
+  shell: node -v
+  register: node_check
+  ignore_errors: yes
+
+- name: Install Node.js using apt-get
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop: 
+    - nodejs
+    - npm
+  when: node_check.rc != 0 and ansible_distribution == "Ubuntu"
+  become: yes
