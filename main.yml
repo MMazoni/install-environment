@@ -3,8 +3,9 @@
   hosts: all
   roles:
     #  - apt_packages
-    - nvim
+    #  - nvim
     #  - fish
+    - tmux  
     #  - vim
     #  - git
     #  - github

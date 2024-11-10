@@ -1,0 +1,30 @@
+---
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    state: "latest"
+  loop:
+    - tmux
+    - fzf
+  become: yes
+
+- name: Download the tmux config
+  get_url:
+    url: https://raw.githubusercontent.com/MMazoni/configuration-files/refs/heads/master/.tmux.conf
+    dest: "{{ ansible_env.HOME }}/.tmux.config"
+
+- name: Create tmux-sessionizer directory
+  file:
+    path: "{{ ansible_env.HOME }}/.local/scripts"
+    state: directory
+    mode: 0755
+
+- name: Download the tmux-sessionizer file
+  get_url:
+    url: https://raw.githubusercontent.com/MMazoni/configuration-files/refs/heads/master/.local/scripts/tmux-sessionizer
+    dest: "{{ ansible_env.HOME }}/.local/scripts/tmux-sessionizer"
+
+- name: Permission to execute tmux-sessionizer
+  shell: "chmod +x {{ ansible_env.HOME }}/.local/scripts/tmux-sessionizer"
+
