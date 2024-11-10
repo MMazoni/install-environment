@@ -2,12 +2,12 @@
 - name: Install environment
   hosts: all
   roles:
-  - nvim
-    #    - apt_packages
-    #    - fish
-    #    - vim
-    #    - git
-    #    - github
-    #    - docker
-    #    - kubernetes
-    #    - kind
+    #  - apt_packages
+    - nvim
+    #  - fish
+    #  - vim
+    #  - git
+    #  - github
+    #  - docker
+    #  - kubernetes
+    #  - kind
