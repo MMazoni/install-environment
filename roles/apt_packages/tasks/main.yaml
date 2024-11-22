@@ -15,4 +15,6 @@
     - vim
     - curl
     - wget
+    - gh
+    - zip
   become: yes

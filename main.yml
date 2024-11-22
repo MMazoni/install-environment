@@ -2,9 +2,9 @@
 - name: Install environment
   hosts: all
   roles:
-    #  - apt_packages
-    #  - nvim
-    #  - fish
+    - apt_packages
+    - nvim
+    - fish
     - tmux  
     #  - vim
     #  - git
