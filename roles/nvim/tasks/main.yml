@@ -45,7 +45,7 @@
   register: node_check
   ignore_errors: yes
 
-- name: Install Node.js using apt-get
+- name: Install requirements using apt-get
   apt:
     name: "{{ item }}"
     state: latest
@@ -53,5 +53,6 @@
   loop: 
     - nodejs
     - npm
+    - pylint
   when: node_check.rc != 0 and ansible_distribution == "Ubuntu"
   become: yes
